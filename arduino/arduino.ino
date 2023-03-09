@@ -41,6 +41,7 @@ void setup()
 
 void loop()
 {
+  printToSerial("Input command (d - door, w - window, l - lights, s - soil, x - exit)")
   checkGasValue();
   if (Serial.available() > 0)
   {
@@ -59,6 +60,9 @@ void loop()
       case 's':
         getSoilHumidity();
         break;
+      case 'x':
+        printToScreen("Exit");
+        break;
       default:
         //printToScreen("Error,bad input!");
         break;
@@ -72,9 +76,11 @@ void checkGasValue(){
     if (val> 450){ // turn on the fan
       digitalWrite (7, HIGH);
       analogWrite(6,150);
+      printToSerial("Gas : 1");
     }else{
       digitalWrite (7, LOW);
       analogWrite(6,0);
+      printToSerial("Gas : 0");
     }
     delay(1000);
   }
@@ -88,11 +94,12 @@ void getSoilHumidity(){
        break;
     }
     if (soilValue < 300){
-      Serial.write("Dry soil \n");
       printToScreen("Dry soil: " + String(soilValue));
+      printToSerial("Soil : Dry");
       delay(500);
     }else{
       printToScreen("Wet soil: " + String(soilValue));
+      printToSerial("Soil : Wet");
       delay(500);
     }
   }
@@ -107,7 +114,10 @@ void changeLights(){
   else{
     digitalWrite(13, HIGH);
     isLightOn = true;
-  }printToScreen(" Light: " + String(isLightOn));
+  }
+  printToScreen(" Light: " + String(isLightOn));
+  printToSerial(" Light: " + String(isLightOn));
+
 }
 
 
@@ -127,7 +137,9 @@ void changeWindow(){
     }
     isWindowOpen = true;
     
-  }printToScreen(" Window: " + String(isWindowOpen));
+  }
+  printToScreen(" Window: " + String(isWindowOpen));
+  printToSerial(" Window: " + String(isWindowOpen));
 }
 
 
@@ -147,7 +159,9 @@ void changeDoor(){
     }
     isDoorOpen = true;
     
-  }printToScreen(" Door: " + String(isDoorOpen));
+  }
+  printToScreen(" Door: " + String(isDoorOpen));
+  printToSerial(" Door: " + String(isDoorOpen));
 }
 
 void printToScreen(String message)
@@ -156,3 +170,8 @@ void printToScreen(String message)
   mylcd.setCursor(1 - 1, 1 - 1);
   mylcd.print(message);
 }
+
+void printToSerial(String message)
+{
+  Serial.println(message);
+  }
