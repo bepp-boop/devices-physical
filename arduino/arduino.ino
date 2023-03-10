@@ -41,7 +41,6 @@ void setup()
 
 void loop()
 {
-  printToSerial("Input command (d - door, w - window, l - lights, s - soil, x - exit)")
   checkGasValue();
   if (Serial.available() > 0)
   {

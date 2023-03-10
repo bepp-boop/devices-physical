@@ -60,5 +60,10 @@ while True:
             light.set(True)
             arduino.write(b'l')
             print("Light is on")
+    elif command == "x":
+        arduino.write(b'x')
+        print("System is shutting down")
+        break;
+
 
 
