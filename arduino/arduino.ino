@@ -60,6 +60,7 @@ void loop()
         getSoilHumidity();
         break;
       case 'x':
+      //Need to turn everything off. So no inconsistance between firebase        
         printToScreen("Exit");
         break;
       default:

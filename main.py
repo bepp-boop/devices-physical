@@ -26,7 +26,7 @@ arduino = serial.Serial('COM5', 9600, timeout=.1)
 
 #Make a console that take input from user
 
-
+print("Welcome to Smart Home System  \n	Commands: \n		w: Window \n		d: Door \n		l: Light \n		x: Exit")
 while True:
     command = input("Enter command: ")
     data = arduino.readline().decode().strip()
@@ -62,7 +62,7 @@ while True:
             print("Light is on")
     elif command == "x":
         arduino.write(b'x')
-        print("System is shutting down")
+        print("Turn off all devices")
         break;
 
 
